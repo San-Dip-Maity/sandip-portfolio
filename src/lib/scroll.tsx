@@ -72,3 +72,4 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 export function useScroll() {
   return useContext(ScrollContext);
 }
+

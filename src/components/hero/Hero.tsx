@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { PROFILE } from "@/lib/data";
 import { useScroll } from "@/lib/scroll";
+import { ThreeScene3D } from "@/components/ui/ThreeScene3D";
 import {
+  ArrowUpRight,
   ArrowDownRight,
   Download,
   Copy,
@@ -12,8 +14,6 @@ import {
   MapPin,
   Clock,
   Sparkles,
-  ShieldCheck,
-  Cpu,
   Layers,
 } from "lucide-react";
 
@@ -23,7 +23,7 @@ export function Hero() {
   const [timeIST, setTimeIST] = useState("");
   const [timeUK, setTimeUK] = useState("");
 
-  // Update live timezone clocks
+  // Live timezone tracking
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -61,189 +61,198 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen pt-28 pb-16 md:py-36 flex items-center bg-grid-cyber overflow-hidden"
-      aria-label="Introduction and Overview"
+      className="relative min-h-screen w-full pt-28 pb-16 md:pt-32 md:pb-24 flex flex-col justify-between overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300 select-none"
+      aria-label="Introduction Hero"
     >
-      {/* Ambient background glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00e5ff]/10 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-1/4 right-1/4 w-[32rem] h-[32rem] bg-[#6366f1]/10 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
+      {/* Background Precision Swiss Grid */}
+      <div className="absolute inset-0 swiss-grid-overlay pointer-events-none opacity-80" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Headlines & Call to Actions */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
-            {/* Status / Availability Kicker */}
-            <div className="flex flex-wrap items-center gap-2 mb-6">
-              <span className="section-tag">
-                <span className="w-2 h-2 rounded-full bg-[#00e5ff] animate-pulse"></span>
+      {/* Coordinate Crosshairs at Key Grid Intersections */}
+      <div className="crosshair-mark top-24 left-8">+</div>
+      <div className="crosshair-mark top-24 right-8">+</div>
+      <div className="crosshair-mark top-1/2 left-8 -translate-y-1/2">+</div>
+      <div className="crosshair-mark top-1/2 right-8 -translate-y-1/2">+</div>
+      <div className="crosshair-mark bottom-12 left-8">+</div>
+      <div className="crosshair-mark bottom-12 right-8">+</div>
+
+      {/* Monumental Watermark Typography (Inspired by user's image) */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none z-0"
+        aria-hidden="true"
+      >
+        <span className="font-extrabold tracking-tighter text-[clamp(5rem,19vw,22rem)] leading-none text-[var(--watermark)] block uppercase font-body">
+          SANDIP
+        </span>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 my-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[640px]">
+          
+          {/* Left Column: Manifesto & Huge Headline (As in Reference Image) */}
+          <div className="lg:col-span-5 flex flex-col justify-between h-full py-4 z-20">
+            {/* Top Status Kicker */}
+            <div className="flex items-center gap-2 mb-8">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-telemetry bg-[var(--accent-cyan-glow)] text-[var(--accent-cyan)] border border-[var(--border-accent)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-cyan)] animate-pulse" />
                 <span>OPEN FOR HIGH-IMPACT OPPORTUNITIES</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-telemetry text-slate-300">
-                <MapPin className="w-3.5 h-3.5 text-[#00e5ff]" />
-                <span>{PROFILE.location}</span>
-              </span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
-              Architecting resilient{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00e5ff] via-sky-400 to-[#6366f1]">
-                full-stack systems
-              </span>
-              ,{" "}
-              <span className="font-editorial italic font-normal text-slate-200">
-                enterprise platforms
-              </span>{" "}
-              & real-time engines.
-            </h1>
-
-            {/* Role & Mission Summary */}
-            <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed mb-8">
-              I&apos;m <strong className="text-white font-semibold">{PROFILE.name}</strong>, a Software Engineer currently engineering scalable ERP, HRMS, and CRM architectures at{" "}
-              <span className="text-[#00e5ff] font-medium">{PROFILE.currentCompany}</span>. I specialize in high-concurrency Node.js/NestJS backends, reactive Next.js 15 frontends, WebSockets, and enterprise RBAC security.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 mb-10">
-              <button
-                onClick={() => scrollToTarget("#projects")}
-                className="group flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00e5ff] to-[#6366f1] text-[#090a0f] font-bold text-sm shadow-lg shadow-[#00e5ff]/25 hover:brightness-110 transition-all cursor-pointer"
-              >
-                <span>Explore Systems & Work</span>
-                <ArrowDownRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
-              </button>
-
-              <a
-                href={PROFILE.resumePdf}
-                download="Sandip_Maity_Resume.pdf"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-[#131620] hover:bg-[#1a1e2c] border border-white/10 hover:border-[#00e5ff]/40 text-slate-200 text-sm font-telemetry transition-all"
-              >
-                <Download className="w-4 h-4 text-[#00e5ff]" />
-                <span>Resume (PDF)</span>
-              </a>
-
-              <button
-                onClick={handleCopyEmail}
-                className="flex items-center gap-2 px-4 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-telemetry text-slate-300 hover:text-white transition-all cursor-pointer"
-                title="Click to copy email address"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-400 font-semibold">Email Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 text-slate-400" />
-                    <span>{PROFILE.email}</span>
-                  </>
-                )}
-              </button>
+            {/* Sub-Manifesto */}
+            <div className="max-w-md mb-12">
+              <p className="font-telemetry text-xs sm:text-sm tracking-wider uppercase text-[var(--text-secondary)] leading-relaxed border-l-2 border-[var(--accent-cyan)] pl-3">
+                I DESIGN &amp; ENGINEER SCALABLE FULL-STACK SYSTEMS THAT ARE RESILIENT,
+                HIGH-THROUGHPUT AND PRODUCTION-READY.
+              </p>
             </div>
 
-            {/* Live System Telemetry Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-[#131620]/70 border border-white/10 backdrop-blur-md max-w-2xl">
-              <div>
-                <span className="block text-[10px] font-telemetry uppercase tracking-wider text-slate-400 mb-0.5 flex items-center gap-1">
-                  <Cpu className="w-3 h-3 text-[#00e5ff]" /> Production Stack
-                </span>
-                <span className="font-semibold text-xs text-white">
-                  Next.js • NestJS • MongoDB
-                </span>
-              </div>
+            {/* Bottom Bold Headline */}
+            <div className="mt-auto">
+              <span className="font-telemetry text-xs text-[var(--text-muted)] tracking-widest block mb-1">
+                ©{new Date().getFullYear()} — WEST BENGAL, IN
+              </span>
+              <h1 className="text-5xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-[var(--text-primary)] uppercase leading-[0.95] mb-2 font-body">
+                SANDIP
+              </h1>
+              <p className="text-sm sm:text-base font-telemetry text-[var(--accent-cyan)] tracking-wider uppercase font-semibold">
+                SOFTWARE ENGINEER • FULL STACK ARCHITECT
+              </p>
 
-              <div>
-                <span className="block text-[10px] font-telemetry uppercase tracking-wider text-slate-400 mb-0.5 flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-emerald-400" /> Current Enterprise
-                </span>
-                <span className="font-semibold text-xs text-white truncate block">
-                  Tedekstra Limited (UK)
-                </span>
-              </div>
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 mt-6">
+                <button
+                  onClick={() => scrollToTarget("#projects")}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-secondary)] text-white dark:text-[#090a0f] font-bold text-xs tracking-tight shadow-md hover:brightness-110 transition-all cursor-pointer"
+                >
+                  <span>Explore Systems</span>
+                  <ArrowDownRight className="w-4 h-4" />
+                </button>
 
-              <div className="col-span-2 sm:col-span-1">
-                <span className="block text-[10px] font-telemetry uppercase tracking-wider text-slate-400 mb-0.5 flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-amber-400" /> Dual Timezone
-                </span>
-                <span className="font-telemetry text-xs text-slate-200">
-                  IST {timeIST || "--:--"}
+                <a
+                  href={PROFILE.resumePdf}
+                  download="Sandip_Maity_Resume.pdf"
+                  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-telemetry text-[var(--text-primary)] hover:border-[var(--accent-cyan)]/40 transition-all shadow-sm"
+                >
+                  <Download className="w-3.5 h-3.5 text-[var(--accent-cyan)]" />
+                  <span>Resume (PDF)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Center Column: Portrait Image (Framed & Layered) */}
+          <div className="lg:col-span-4 flex justify-center items-center relative z-10 py-6">
+            <div className="relative w-full max-w-[340px] sm:max-w-[380px] aspect-[4/5] rounded-3xl overflow-hidden bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-2xl group">
+              {/* Subtle Ambient Radial Lighting */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--accent-cyan)]/20 via-transparent to-[var(--accent-secondary)]/20 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity" />
+
+              <Image
+                src={PROFILE.avatarUrl}
+                alt={PROFILE.name}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 420px"
+                className="object-cover object-top filter contrast-[1.03] transition-transform duration-700 group-hover:scale-105"
+              />
+
+              {/* Gradient Bottom Fade for Clean Editorial Blend */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-60" />
+
+              {/* Status Badge in Portrait */}
+              <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-[var(--bg-card)]/85 backdrop-blur-md border border-[var(--border-subtle)] flex items-center justify-between">
+                <div>
+                  <span className="block text-xs font-bold text-[var(--text-primary)]">
+                    {PROFILE.name}
+                  </span>
+                  <span className="block text-[10px] font-telemetry text-[var(--accent-cyan)]">
+                    Tedekstra Limited (UK Remote)
+                  </span>
+                </div>
+                <span className="text-[10px] font-telemetry px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-500 font-semibold border border-emerald-500/30">
+                  {PROFILE.experienceYears}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Sandip's Photo & Interactive Dimensions */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-md">
-              {/* Decorative background framing */}
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-[#00e5ff]/30 via-[#6366f1]/20 to-transparent blur-md opacity-80" />
+          {/* Right Column: Floating 3D Three.js Card & "Let's Talk" Card (From Reference Image) */}
+          <div className="lg:col-span-3 flex flex-col justify-between h-full gap-6 py-4 z-20">
+            {/* Floating Card 1: Three.js 3D Interactive Card (Like Zentix in reference) */}
+            <div className="p-3.5 rounded-3xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-xl hover:shadow-2xl transition-all group">
+              <div className="w-full h-48 rounded-2xl overflow-hidden bg-[var(--bg-secondary)] border border-[var(--border-subtle)] relative">
+                <ThreeScene3D className="w-full h-full" />
+              </div>
+              <div className="flex items-center justify-between mt-3 px-1">
+                <span className="text-[11px] font-telemetry text-[var(--text-primary)] font-bold flex items-center gap-1">
+                  <span>✱</span> THREE.JS CORE
+                </span>
+                <span className="text-[10px] font-telemetry text-[var(--accent-cyan)]">
+                  /3D Graphics
+                </span>
+              </div>
+            </div>
 
-              {/* Main Card Frame */}
-              <div className="relative rounded-3xl overflow-hidden bg-[#131620] border border-white/15 p-3.5 shadow-2xl">
-                {/* Image Container with Aspect Ratio */}
-                <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-slate-900 border border-white/10 group">
-                  <Image
-                    src={PROFILE.avatarUrl}
-                    alt={PROFILE.name}
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 420px"
-                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
+            {/* Floating Card 2: "Let's Talk" Card (Exactly like reference image!) */}
+            <div
+              onClick={() => scrollToTarget("#contact")}
+              className="p-4 rounded-3xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-xl hover:border-[var(--accent-cyan)]/50 transition-all cursor-pointer group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-telemetry text-[var(--text-secondary)] font-medium">
+                  Let&apos;s Talk
+                </span>
+                <div className="w-2 h-2 rounded-full bg-[var(--accent-cyan)] animate-pulse" />
+              </div>
 
-                  {/* Gradient overlay for text contrast at the bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#090a0f] via-transparent to-transparent opacity-80" />
-
-                  {/* Corner Tech Badges */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#090a0f]/80 backdrop-blur-md border border-white/15 text-[11px] font-telemetry text-white">
-                    <Sparkles className="w-3 h-3 text-[#00e5ff]" />
-                    <span>Software Engineer</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--bg-secondary)]">
+                    <Image
+                      src={PROFILE.avatarUrl}
+                      alt={PROFILE.name}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-
-                  <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 text-[10px] font-telemetry text-emerald-300 font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Remote Ready</span>
-                  </div>
-
-                  {/* Bottom Info Overlay */}
-                  <div className="absolute bottom-3 left-3 right-3 p-3.5 rounded-xl bg-[#090a0f]/85 backdrop-blur-md border border-white/10">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-sm text-white tracking-tight">
-                        {PROFILE.name}
-                      </span>
-                      <span className="text-[10px] font-telemetry text-[#00e5ff] px-2 py-0.5 rounded bg-[#00e5ff]/10 border border-[#00e5ff]/20">
-                        {PROFILE.experienceYears} Exp
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300 line-clamp-1">
-                      Full-Stack Architect & Enterprise ERP/HRMS Specialist
-                    </p>
+                  <div>
+                    <span className="block font-bold text-xs text-[var(--text-primary)]">
+                      {PROFILE.name}
+                    </span>
+                    <span className="block text-[10px] font-telemetry text-[var(--text-muted)]">
+                      Full Stack Engineer
+                    </span>
                   </div>
                 </div>
 
-                {/* Bottom Card Badges */}
-                <div className="grid grid-cols-2 gap-2 mt-3 text-center">
-                  <div className="p-2 rounded-xl bg-white/5 border border-white/5">
-                    <span className="block text-[10px] font-telemetry text-slate-400">
-                      Primary Backend
-                    </span>
-                    <span className="font-bold text-xs text-white">
-                      Node.js / NestJS
-                    </span>
-                  </div>
-                  <div className="p-2 rounded-xl bg-white/5 border border-white/5">
-                    <span className="block text-[10px] font-telemetry text-slate-400">
-                      Primary Client
-                    </span>
-                    <span className="font-bold text-xs text-white">
-                      Next.js & React 19
-                    </span>
-                  </div>
+                <div className="w-8 h-8 rounded-xl bg-[var(--bg-elevated)] group-hover:bg-[var(--accent-cyan)] group-hover:text-black flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="w-4 h-4 text-[var(--text-primary)] group-hover:text-black" />
                 </div>
               </div>
             </div>
+
+            {/* Timezone Telemetry Strip */}
+            <div className="p-3.5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] flex items-center justify-between text-[11px] font-telemetry text-[var(--text-secondary)]">
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[var(--accent-cyan)]" />
+                <span>IST {timeIST || "--:--"}</span>
+              </span>
+              <span className="text-[var(--text-muted)]">|</span>
+              <span>UK {timeUK || "--:--"}</span>
+            </div>
+
           </div>
+
         </div>
+      </div>
+
+      {/* Bottom Coordinate Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full border-t border-[var(--border-subtle)] pt-4 mt-8 flex flex-wrap items-center justify-between text-xs font-telemetry text-[var(--text-muted)]">
+        <span>LOC: WEST BENGAL, INDIA [22.9868° N, 87.8550° E]</span>
+        <span className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span>PRODUCTION SYSTEMS READY</span>
+        </span>
       </div>
     </section>
   );

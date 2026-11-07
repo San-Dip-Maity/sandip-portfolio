@@ -15,7 +15,7 @@ import { Footer } from "@/components/Footer";
 export function App() {
   return (
     <SmoothScrollProvider>
-      <div className="relative min-h-screen bg-[#090a0f] text-slate-100 selection:bg-[#00e5ff] selection:text-[#090a0f] overflow-x-hidden">
+      <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--accent-cyan)] selection:text-[var(--bg-primary)] overflow-x-hidden transition-colors duration-300">
         {/* Fixed Navigation */}
         <Navigation />
 
@@ -30,7 +30,7 @@ export function App() {
           <ContactSection />
         </main>
 
-        {/* Technical Footer */}
+        {/* Technical Minimalist Footer */}
         <Footer />
       </div>
     </SmoothScrollProvider>

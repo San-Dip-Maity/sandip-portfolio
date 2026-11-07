@@ -546,3 +546,4 @@ export const TERMINAL_COMMANDS: Record<string, string> = {
   contact: `Email:    sandipmaity21052003@gmail.com\nPhone:    +91 7908729570\nGitHub:   https://github.com/San-Dip-Maity\nLinkedIn: https://linkedin.com/in/sandip-maity`,
   status: `STATUS: ONLINE & ACTIVE\nAVAILABILITY: Open for senior engineering opportunities & contract consulting.\nLOCAL TIME: IST (UTC+5:30) / Liverpool Sync (UTC+0)`,
 };
+
