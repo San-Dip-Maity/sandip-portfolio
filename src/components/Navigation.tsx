@@ -49,10 +49,16 @@ export function Navigation({ onOpen3D }: NavigationProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 40);
+
+      if (scrollY < 120) {
+        setActiveSection("hero");
+        return;
+      }
 
       const sections = navLinks.map((l) => l.id);
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = scrollY + 200;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);

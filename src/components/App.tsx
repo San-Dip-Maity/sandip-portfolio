@@ -31,6 +31,18 @@ const AgenticFactory3D = dynamic(
 export function App() {
   const [openDemo, setOpenDemo] = useState<"skyline" | "agentic-factory" | null>(null);
 
+  // Guarantee window starts at the top (hero section) on initial page load
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, []);
+
   // Lock body scroll when 3D modal is active
   useEffect(() => {
     if (openDemo) {

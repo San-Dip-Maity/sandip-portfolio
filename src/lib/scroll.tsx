@@ -36,6 +36,11 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     setLenisInstance(lenis);
 
+    if (!window.location.hash && window.scrollY > 0) {
+      window.scrollTo(0, 0);
+      lenis.scrollTo(0, { immediate: true });
+    }
+
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);

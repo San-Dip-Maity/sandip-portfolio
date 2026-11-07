@@ -23,13 +23,16 @@ export function InteractiveTerminal() {
   const [commandHistory, setCommandHistory] = useState<string[]>(["status"]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
 
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const quickPills = ["help", "about", "skills", "projects", "exp", "contact", "resume", "clear"];
 
+  // Only scroll the terminal container itself, never the whole window
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
   }, [history]);
 
   const executeCommand = (cmdText: string) => {
@@ -144,6 +147,7 @@ export function InteractiveTerminal() {
 
           {/* Terminal Screen Body */}
           <div
+            ref={terminalBodyRef}
             className="p-6 font-telemetry text-xs sm:text-sm h-96 overflow-y-auto space-y-4 text-slate-200"
             onClick={() => inputRef.current?.focus()}
           >
@@ -180,8 +184,6 @@ export function InteractiveTerminal() {
                 <CornerDownLeft className="w-3.5 h-3.5" />
               </button>
             </div>
-
-            <div ref={terminalEndRef} />
           </div>
 
           {/* Quick Command Pills Bar */}

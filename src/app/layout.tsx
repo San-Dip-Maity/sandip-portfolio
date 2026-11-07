@@ -107,7 +107,21 @@ export default function RootLayout({
       className={`${interTight.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} dark`}
       suppressHydrationWarning
     >
-      <body className="antialiased selection:bg-[#00e5ff] selection:text-[#090a0f]">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+                window.scrollTo(0, 0);
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className="antialiased selection:bg-[#eb5424] selection:text-white">
         {children}
       </body>
     </html>
