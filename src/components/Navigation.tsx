@@ -140,16 +140,6 @@ export function Navigation({ onOpen3D }: NavigationProps) {
 
           {/* Right Action Utilities */}
           <div className="hidden sm:flex items-center gap-3">
-            {onOpen3D && (
-              <button
-                onClick={onOpen3D}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-telemetry text-[var(--text-primary)] transition-all cursor-pointer shadow-sm"
-                title="Launch 3D Skyline"
-              >
-                <Box className="w-3.5 h-3.5 text-[var(--accent)]" />
-                <span>3D View</span>
-              </button>
-            )}
 
             {/* Theme Toggle */}
             <button

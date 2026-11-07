@@ -9,9 +9,7 @@ import {
   ArrowDownRight,
   Download,
   Clock,
-  Box,
   Layers,
-  Sparkles,
 } from "lucide-react";
 
 interface HeroProps {
@@ -94,7 +92,7 @@ export function Hero({ onOpen3D }: HeroProps) {
               </p>
               <div className="flex items-center gap-2 mt-4 text-[11px] font-telemetry text-[var(--text-muted)]">
                 <Layers className="w-3.5 h-3.5 text-[var(--accent)]" />
-                <span>Next.js • NestJS • WebSockets • Microservices • Three.js</span>
+                <span>Next.js • NestJS • WebSockets • MERN Stack</span>
               </div>
             </div>
 
@@ -107,7 +105,7 @@ export function Hero({ onOpen3D }: HeroProps) {
                 SANDIP
               </h1>
               <p className="text-xs sm:text-sm font-telemetry text-[var(--accent)] tracking-widest uppercase font-bold">
-                FULL STACK ARCHITECT • TEDEKSTRA UK
+                FULL STACK DEVELOPER
               </p>
 
               {/* Action Buttons */}
@@ -129,52 +127,13 @@ export function Hero({ onOpen3D }: HeroProps) {
                   <span>Resume (PDF)</span>
                 </a>
 
-                {onOpen3D && (
-                  <button
-                    onClick={onOpen3D}
-                    className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-telemetry text-[var(--accent)] hover:border-[var(--accent)]/40 transition-all shadow-sm cursor-pointer"
-                  >
-                    <Box className="w-3.5 h-3.5" />
-                    <span>3D Skyline</span>
-                  </button>
-                )}
               </div>
             </div>
           </div>
 
           {/* Right Column: Floating Cards (Matching Reference Layout) */}
-          <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-between items-start lg:items-end h-full gap-6 py-2 z-20">
-            {/* Floating Card 1: Featured Project Spotlight Card (Like Zentix in reference) */}
-            <div
-              onClick={() => scrollToTarget("#projects")}
-              className="w-full max-w-[290px] p-4 rounded-3xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-xl hover:border-[var(--accent)]/50 transition-all duration-300 cursor-pointer group"
-            >
-              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-[var(--bg-secondary)] to-[var(--bg-elevated)] border border-[var(--border-subtle)] relative flex flex-col items-center justify-center p-5 text-center group-hover:scale-[1.02] transition-transform">
-                <div className="w-10 h-10 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center mb-3">
-                  <Sparkles className="w-5 h-5 text-[var(--accent)]" />
-                </div>
-                <span className="block text-[10px] font-telemetry font-bold text-[var(--accent)] tracking-widest uppercase mb-1">
-                  01 // FEATURED SYSTEM
-                </span>
-                <h4 className="font-extrabold text-base text-[var(--text-primary)] font-body">
-                  SyncSpace
-                </h4>
-                <p className="text-[10px] font-telemetry text-[var(--text-muted)] mt-1 max-w-[190px]">
-                  WebSocket collaborative canvas engine with sub-10ms state sync
-                </p>
-              </div>
-
-              <div className="flex items-center justify-between mt-3 px-1">
-                <span className="text-[11px] font-telemetry font-bold text-[var(--text-primary)] flex items-center gap-1">
-                  <span className="text-[var(--accent)]">✱</span> SYNCSPACE
-                </span>
-                <span className="text-[10px] font-telemetry text-[var(--accent)] font-semibold">
-                  /WebSockets
-                </span>
-              </div>
-            </div>
-
-            {/* Floating Card 2: "Let's Talk" Card (Faithful to Reference Image) */}
+          <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-end items-start lg:items-end h-full gap-4 py-2 z-20">
+            {/* Floating Card: "Let's Talk" Card (Faithful to Reference Image) */}
             <div
               onClick={() => scrollToTarget("#contact")}
               className="w-full max-w-[290px] p-4 rounded-3xl bg-[var(--bg-card)] border border-[var(--border-subtle)] shadow-xl hover:border-[var(--accent)]/50 transition-all cursor-pointer group"
