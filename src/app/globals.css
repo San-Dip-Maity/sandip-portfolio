@@ -3,37 +3,29 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Default: Dark Obsidian with Signature Vermilion Orange Accent */
-  --bg-primary: #0d0a09;
-  --bg-secondary: #140f0d;
-  --bg-card: #1c1512;
-  --bg-card-hover: #261d19;
-  --bg-elevated: #2e231e;
+  /* Unified Cyber-Editorial Dark Theme (Default) */
+  --bg-primary: #0c0a09;
+  --bg-secondary: #14100e;
+  --bg-card: #181310;
+  --bg-card-hover: #221a16;
+  --bg-elevated: #2a201b;
   
-  --text-primary: #fdfbf7;
-  --text-secondary: #c4b5ab;
-  --text-muted: #8c7b72;
+  --text-primary: #fbf9f5;
+  --text-secondary: #c2b5ab;
+  --text-muted: #7d7067;
   
-  --border-subtle: rgba(255, 255, 255, 0.09);
-  --border-medium: rgba(255, 255, 255, 0.18);
-  --border-accent: rgba(235, 84, 36, 0.5);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-accent: rgba(235, 84, 36, 0.45);
   
-  /* Signature Radiant Vermilion Orange (From Reference Image) */
-  --accent-orange: #eb5424;
-  --accent-orange-hover: #f95f2e;
-  --accent-orange-glow: rgba(235, 84, 36, 0.28);
-  --hero-orange-gradient: linear-gradient(135deg, #eb5424 0%, #d84516 100%);
+  /* Signature Vermilion Orange Accent */
+  --accent: #eb5424;
+  --accent-hover: #f95f2e;
+  --accent-glow: rgba(235, 84, 36, 0.18);
   
-  --accent-cyan: #00e5ff;
-  --accent-secondary: #ea580c;
-  --accent-emerald: #10b981;
-  
-  --code-bg: #140f0d;
-  --code-header: #1f1714;
-  
-  --grid-line: rgba(255, 255, 255, 0.08);
-  --crosshair: rgba(255, 255, 255, 0.6);
-  --watermark: rgba(255, 255, 255, 0.04);
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --crosshair: rgba(235, 84, 36, 0.5);
+  --watermark: rgba(255, 255, 255, 0.035);
   
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --font-inter: var(--font-inter-tight, system-ui, -apple-system, sans-serif);
@@ -42,36 +34,28 @@
 }
 
 html.light {
-  /* Clean Studio Warm Paper with Radiant Vermilion Orange Accent */
-  --bg-primary: #faf8f5;
-  --bg-secondary: #f2eee8;
+  /* Unified Clean Editorial Studio Theme */
+  --bg-primary: #f8f6f0;
+  --bg-secondary: #f0ebe1;
   --bg-card: #ffffff;
   --bg-card-hover: #fcfbfa;
-  --bg-elevated: #e9e3da;
+  --bg-elevated: #e6dfd3;
   
-  --text-primary: #1c140e;
+  --text-primary: #14110f;
   --text-secondary: #574c43;
   --text-muted: #8c7e75;
   
-  --border-subtle: rgba(28, 20, 14, 0.09);
-  --border-medium: rgba(28, 20, 14, 0.18);
-  --border-accent: rgba(235, 84, 36, 0.5);
+  --border-subtle: rgba(20, 17, 15, 0.08);
+  --border-medium: rgba(20, 17, 15, 0.16);
+  --border-accent: rgba(235, 84, 36, 0.45);
   
-  --accent-orange: #ea580c;
-  --accent-orange-hover: #d94516;
-  --accent-orange-glow: rgba(234, 88, 12, 0.15);
-  --hero-orange-gradient: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  --accent: #ea580c;
+  --accent-hover: #d94516;
+  --accent-glow: rgba(234, 88, 12, 0.12);
   
-  --accent-cyan: #0284c7;
-  --accent-secondary: #ea580c;
-  --accent-emerald: #059669;
-  
-  --code-bg: #1f1714;
-  --code-header: #140f0d;
-  
-  --grid-line: rgba(28, 20, 14, 0.08);
-  --crosshair: rgba(28, 20, 14, 0.5);
-  --watermark: rgba(28, 20, 14, 0.05);
+  --grid-line: rgba(20, 17, 15, 0.06);
+  --crosshair: rgba(234, 88, 12, 0.5);
+  --watermark: rgba(20, 17, 15, 0.04);
 }
 
 @layer base {
@@ -104,7 +88,7 @@ html.light {
   }
 
   ::selection {
-    background-color: var(--accent-orange);
+    background-color: var(--accent);
     color: #ffffff;
   }
 }
@@ -127,18 +111,47 @@ html.light {
   background-image: 
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: clamp(60px, 8vw, 120px) clamp(60px, 8vw, 120px);
+  background-size: clamp(60px, 8vw, 100px) clamp(60px, 8vw, 100px);
 }
 
 .crosshair-mark {
   position: absolute;
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 14px;
   color: var(--crosshair);
   font-weight: 300;
   line-height: 1;
   pointer-events: none;
   user-select: none;
+}
+
+/* Minimal Section Structure */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.section-serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
 }
 
 /* Custom Scrollbar */

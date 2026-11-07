@@ -13,7 +13,7 @@ import { InteractiveTerminal } from "@/components/terminal/InteractiveTerminal";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { Footer } from "@/components/Footer";
 import ContributionSkyline from "@/components/ui/contribution-skyline";
-import { X, Box, Sparkles, ExternalLink } from "lucide-react";
+import { X, Box, Sparkles } from "lucide-react";
 
 // Dynamic import for Three.js Agentic Factory to ensure smooth client-side hydration
 const AgenticFactory3D = dynamic(
@@ -49,45 +49,14 @@ export function App() {
 
   return (
     <SmoothScrollProvider>
-      <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--accent-orange)] selection:text-white overflow-x-hidden transition-colors duration-300">
+      <div className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--accent)] selection:text-white overflow-x-hidden transition-colors duration-300">
         {/* Fixed Navigation */}
-        <Navigation />
+        <Navigation onOpen3D={() => setOpenDemo("skyline")} />
 
         {/* Main Content Flow */}
         <main id="main-content" role="main" className="relative">
-          {/* Hero with exact layout & vermilion orange canvas from reference image */}
-          <Hero onOpen3DModal={(type) => setOpenDemo(type)} />
-
-          {/* 3D Showcase Banner Trigger */}
-          <section className="py-8 bg-[var(--bg-secondary)] border-b border-[var(--border-subtle)]">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-orange)] animate-pulse" />
-                <span className="font-telemetry text-xs uppercase tracking-wider text-[var(--text-primary)] font-bold">
-                  Three.js 3D Interactive Engines:
-                </span>
-                <span className="text-xs text-[var(--text-muted)] hidden sm:inline">
-                  GitHub Contribution Skyline &amp; Autonomous Agentic Factory
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setOpenDemo("skyline")}
-                  className="px-3.5 py-1.5 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-orange)] hover:text-white border border-[var(--border-subtle)] text-xs font-telemetry font-bold transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
-                >
-                  <Box className="w-3.5 h-3.5" />
-                  <span>Launch 3D Skyline</span>
-                </button>
-                <button
-                  onClick={() => setOpenDemo("agentic-factory")}
-                  className="px-3.5 py-1.5 rounded-full bg-[var(--bg-card)] hover:bg-[var(--accent-orange)] hover:text-white border border-[var(--border-subtle)] text-xs font-telemetry font-bold transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Launch 3D Factory</span>
-                </button>
-              </div>
-            </div>
-          </section>
+          {/* Unified Full-Bleed Editorial Hero */}
+          <Hero onOpen3D={() => setOpenDemo("skyline")} />
 
           {/* About Section with Physics Pendulum ID Lanyard */}
           <About />
@@ -117,7 +86,7 @@ export function App() {
             role="dialog"
             aria-modal="true"
             aria-label="3D Skyline Viewport"
-            className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 select-none"
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 select-none"
             onClick={() => setOpenDemo(null)}
           >
             <div
@@ -126,18 +95,26 @@ export function App() {
             >
               <div className="px-6 py-4 border-b border-[var(--border-subtle)] flex items-center justify-between bg-[var(--bg-secondary)] shrink-0">
                 <div className="flex items-center gap-3">
-                  <Box className="w-4 h-4 text-[var(--accent-orange)]" />
+                  <Box className="w-4 h-4 text-[var(--accent)]" />
                   <h3 className="text-sm font-bold text-[var(--text-primary)] font-telemetry">
                     GitHub Contribution Skyline 3D Isometric Viewport
                   </h3>
                 </div>
-                <button
-                  onClick={() => setOpenDemo(null)}
-                  className="w-8 h-8 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--accent-orange)] hover:text-white text-[var(--text-primary)] flex items-center justify-center transition-colors cursor-pointer text-xs"
-                  aria-label="Close"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setOpenDemo("agentic-factory")}
+                    className="text-xs font-telemetry text-[var(--accent)] hover:underline"
+                  >
+                    Switch to Agentic Factory 3D →
+                  </button>
+                  <button
+                    onClick={() => setOpenDemo(null)}
+                    className="w-8 h-8 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--accent)] hover:text-white text-[var(--text-primary)] flex items-center justify-center transition-colors cursor-pointer text-xs"
+                    aria-label="Close"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               <div className="overflow-y-auto p-4 sm:p-8 flex-1">
@@ -153,7 +130,7 @@ export function App() {
             role="dialog"
             aria-modal="true"
             aria-label="Three.js Agentic Factory Viewport"
-            className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 select-none"
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 select-none"
             onClick={() => setOpenDemo(null)}
           >
             <div
@@ -162,18 +139,26 @@ export function App() {
             >
               <div className="px-6 py-3 border-b border-white/10 flex items-center justify-between bg-black/60 backdrop-blur-sm shrink-0 text-white">
                 <div className="flex items-center gap-3">
-                  <Sparkles className="w-4 h-4 text-[#eb5424]" />
+                  <Sparkles className="w-4 h-4 text-[var(--accent)]" />
                   <h3 className="text-sm font-bold font-telemetry">
                     Three.js Autonomous Agentic Factory 3D Pipeline
                   </h3>
                 </div>
-                <button
-                  onClick={() => setOpenDemo(null)}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#eb5424] text-white flex items-center justify-center transition-colors cursor-pointer text-xs"
-                  aria-label="Close"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setOpenDemo("skyline")}
+                    className="text-xs font-telemetry text-[var(--accent)] hover:underline"
+                  >
+                    Switch to Skyline 3D →
+                  </button>
+                  <button
+                    onClick={() => setOpenDemo(null)}
+                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-[var(--accent)] text-white flex items-center justify-center transition-colors cursor-pointer text-xs"
+                    aria-label="Close"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               <div className="relative flex-1 w-full h-full overflow-hidden">

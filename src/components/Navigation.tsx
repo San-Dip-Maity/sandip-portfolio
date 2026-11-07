@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { NAV_ITEMS, PROFILE } from "@/lib/data";
+import { PROFILE } from "@/lib/data";
 import { useScroll } from "@/lib/scroll";
 import {
   Menu,
@@ -9,19 +9,30 @@ import {
   FileText,
   Moon,
   Sun,
+  Box,
   Send,
-  Terminal as TerminalIcon,
-  Sparkles,
 } from "lucide-react";
 
-export function Navigation() {
+interface NavigationProps {
+  onOpen3D?: () => void;
+}
+
+export function Navigation({ onOpen3D }: NavigationProps) {
   const { scrollToTarget } = useScroll();
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
 
-  // Initialize theme from HTML or localStorage
+  const navLinks = [
+    { id: "hero", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "projects", label: "Work (04)" },
+    { id: "skills", label: "Stack (24)" },
+    { id: "experience", label: "Journey" },
+    { id: "contact", label: "Contact" },
+  ];
+
   useEffect(() => {
     const isHtmlLight = document.documentElement.classList.contains("light");
     const stored = localStorage.getItem("sandip_portfolio_theme");
@@ -36,12 +47,11 @@ export function Navigation() {
     }
   }, []);
 
-  // Scroll detection for navbar background & active section
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 40);
 
-      const sections = NAV_ITEMS.map((item) => item.id);
+      const sections = navLinks.map((l) => l.id);
       const scrollPosition = window.scrollY + 200;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -84,51 +94,39 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3.5 px-4 sm:px-6 lg:px-8 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 sm:px-8 lg:px-12 ${
           isScrolled
-            ? "bg-[var(--bg-primary)]/85 backdrop-blur-md border-b border-[var(--border-subtle)] shadow-lg shadow-black/5"
+            ? "bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border-subtle)] shadow-sm"
             : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Brand Logo - High fashion minimal */}
+          {/* Brand Logo - Minimal Editorial */}
           <button
             onClick={() => handleNavClick("hero")}
-            className="group flex items-center gap-3 text-left cursor-pointer focus:outline-none"
+            className="group flex items-center gap-2.5 text-left cursor-pointer focus:outline-none"
             aria-label="Go to top"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-cyan)] to-[var(--accent-secondary)] p-[1.5px] transition-transform duration-300 group-hover:scale-105 shadow-md shadow-[var(--accent-cyan)]/20">
-              <div className="w-full h-full bg-[var(--bg-primary)] rounded-[10px] flex items-center justify-center font-telemetry font-bold text-sm text-[var(--accent-cyan)] tracking-tight">
-                SM
-              </div>
-            </div>
-            <div>
-              <span className="block font-bold text-sm tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors">
-                SANDIP MAITY<span className="text-[10px] font-mono ml-0.5">®</span>
-              </span>
-              <span className="block text-[11px] font-telemetry text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                Software Engineer
-              </span>
-            </div>
+            <span className="font-extrabold text-base sm:text-lg tracking-tight text-[var(--text-primary)] font-body uppercase">
+              SANDIP MAITY<span className="text-[11px] font-mono text-[var(--accent)] ml-0.5">®</span>
+            </span>
           </button>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center gap-1 bg-[var(--bg-card)]/90 border border-[var(--border-subtle)] rounded-full px-4 py-1.5 backdrop-blur-lg shadow-sm">
-            {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.id;
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs font-telemetry uppercase tracking-wider">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id;
               return (
                 <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-telemetry tracking-wide transition-all cursor-pointer flex items-center gap-1.5 ${
+                  key={link.id}
+                  onClick={() => handleNavClick(link.id)}
+                  className={`transition-colors cursor-pointer py-1 ${
                     isActive
-                      ? "bg-[var(--accent-cyan)]/15 text-[var(--accent-cyan)] font-bold border border-[var(--accent-cyan)]/30 shadow-sm"
-                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)]"
+                      ? "text-[var(--accent)] font-bold border-b border-[var(--accent)]"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                   }`}
                 >
-                  <span className="text-[10px] opacity-60">{item.index}</span>
-                  <span>{item.label}</span>
+                  {link.label}
                 </button>
               );
             })}
@@ -136,34 +134,25 @@ export function Navigation() {
 
           {/* Right Action Utilities */}
           <div className="hidden sm:flex items-center gap-3">
-            {/* Quick Terminal Trigger */}
-            <button
-              onClick={() => handleNavClick("terminal")}
-              aria-label="Open Interactive Terminal"
-              className="p-2 rounded-xl bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] transition-all cursor-pointer shadow-sm"
-              title="Interactive Terminal"
-            >
-              <TerminalIcon className="w-4 h-4" />
-            </button>
+            {onOpen3D && (
+              <button
+                onClick={onOpen3D}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-telemetry text-[var(--text-primary)] transition-all cursor-pointer shadow-sm"
+                title="Launch 3D Skyline"
+              >
+                <Box className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span>3D View</span>
+              </button>
+            )}
 
-            {/* Theme Toggle - Flawless Dark/Light switch */}
+            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               aria-label={`Switch to ${isDark ? "Light" : "Dark"} mode`}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-[var(--accent-cyan)]/40 transition-all cursor-pointer shadow-sm text-xs font-telemetry"
+              className="p-2 rounded-full bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] transition-all cursor-pointer shadow-sm"
               title="Toggle Theme"
             >
-              {isDark ? (
-                <>
-                  <Sun className="w-4 h-4 text-amber-400" />
-                  <span className="text-[11px] font-semibold">Light</span>
-                </>
-              ) : (
-                <>
-                  <Moon className="w-4 h-4 text-indigo-600" />
-                  <span className="text-[11px] font-semibold">Dark</span>
-                </>
-              )}
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-orange-500" />}
             </button>
 
             {/* Resume Button */}
@@ -172,30 +161,30 @@ export function Navigation() {
               download="Sandip_Maity_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-telemetry text-[var(--text-primary)] hover:border-[var(--accent-cyan)]/40 transition-all shadow-sm"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--bg-card)] hover:bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-xs font-telemetry text-[var(--text-primary)] transition-all shadow-sm"
             >
-              <FileText className="w-3.5 h-3.5 text-[var(--accent-cyan)]" />
+              <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
               <span>Resume</span>
             </a>
 
             {/* Contact CTA */}
             <button
               onClick={() => handleNavClick("contact")}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-secondary)] text-white dark:text-[#090a0f] hover:brightness-110 font-bold text-xs tracking-tight shadow-md shadow-[var(--accent-cyan)]/25 transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white font-bold text-xs font-telemetry tracking-wide transition-all cursor-pointer shadow-sm shadow-[var(--accent)]/20"
             >
-              <Send className="w-3.5 h-3.5" />
+              <Send className="w-3 h-3" />
               <span>Let&apos;s Talk</span>
             </button>
           </div>
 
-          {/* Mobile Menu Hamburger & Theme Switch */}
+          {/* Mobile Menu Hamburger */}
           <div className="flex sm:hidden items-center gap-2">
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
               className="p-2 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-primary)]"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-orange-500" />}
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -208,22 +197,21 @@ export function Navigation() {
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-[var(--bg-primary)]/95 backdrop-blur-xl lg:hidden pt-24 px-6 flex flex-col justify-between pb-8">
           <nav className="flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => (
+            {navLinks.map((link) => (
               <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
                 className={`flex items-center justify-between p-3.5 rounded-xl text-sm font-telemetry text-left transition-all ${
-                  activeSection === item.id
-                    ? "bg-[var(--accent-cyan)]/15 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/30 font-semibold"
+                  activeSection === link.id
+                    ? "bg-[var(--accent)]/15 text-[var(--accent)] font-bold"
                     : "text-[var(--text-secondary)] hover:bg-[var(--bg-card)]"
                 }`}
               >
-                <span>{item.label}</span>
-                <span className="text-xs opacity-50">{item.index}</span>
+                <span>{link.label}</span>
               </button>
             ))}
           </nav>
@@ -234,12 +222,12 @@ export function Navigation() {
               download="Sandip_Maity_Resume.pdf"
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[var(--bg-card)] text-[var(--text-primary)] font-telemetry text-sm border border-[var(--border-subtle)]"
             >
-              <FileText className="w-4 h-4 text-[var(--accent-cyan)]" />
+              <FileText className="w-4 h-4 text-[var(--accent)]" />
               <span>Download Resume (PDF)</span>
             </a>
             <button
               onClick={() => handleNavClick("contact")}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-secondary)] text-white dark:text-[#090a0f] font-bold text-sm shadow-lg shadow-[var(--accent-cyan)]/30"
+              className="w-full py-3 rounded-xl bg-[var(--accent)] text-white font-bold text-sm shadow-md"
             >
               Let&apos;s Talk
             </button>
