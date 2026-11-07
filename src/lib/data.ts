@@ -82,7 +82,7 @@ export const PROFILE: Profile = {
   currentCompany: "Tedekstra Limited (UK)",
   currentRole: "Software Engineer (Remote)",
   github: "https://github.com/San-Dip-Maity",
-  linkedin: "https://linkedin.com/in/sandip-maity",
+  linkedin: "https://www.linkedin.com/in/sandipmaity21/",
   resumePdf: "/Sandip_Resume.pdf",
   avatarUrl: "/sandip.jpg",
   experienceYears: "2+ Years",
